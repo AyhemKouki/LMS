@@ -47,21 +47,28 @@
                             @endif
                         </td>
                         <td>
-                            <label class="toggle-switch">
-                                <input type="checkbox" {{ $category->is_active ? 'checked' : '' }} data-id="{{ $category->id }}" class="status-toggle">
-                                <span class="toggle-slider"></span>
-                            </label>
+                            <div class="mb-3">
+                                <input type="hidden" name="is_active" value="{{ $category->is_active ? 1 : 0 }}">
+
+                                <div class="status-badge-container" >
+                                    @if($category->is_active)
+                                        <span class="badge bg-success status-badge" data-status="1">Active</span>
+                                    @else
+                                        <span class="badge bg-danger status-badge" data-status="0">Inactive</span>
+                                    @endif
+                                </div>
+                            </div>
                         </td>
                         <td>{{ $category->created_at->format('M d, Y') }}</td>
                         <td>
                             <div class="btn-group btn-group-sm" role="group">
-                                <a href="{{ route('categories.show', $category->id) }}" class="btn btn-light" title="View">
+                                <a href="{{ route('admin.category.show', $category->id) }}" class="btn btn-light" title="View">
                                     <i class="bi bi-eye"></i>
                                 </a>
-                                <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-light" title="Edit">
+                                <a href="{{ route('admin.category.edit', $category->id) }}" class="btn btn-light" title="Edit">
                                     <i class="bi bi-pencil"></i>
                                 </a>
-                                <form action="{{ route('categories.destroy', $category->id) }}" method="POST" class="d-inline">
+                                <form action="{{ route('admin.category.destroy', $category->id) }}" method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-light text-danger" title="Delete" onclick="return confirm('Are you sure?')">

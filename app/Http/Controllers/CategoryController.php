@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
 {
@@ -29,38 +30,75 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required|string|max:255',
+            'slug' => 'required|string|unique:categories,slug|max:255',
+            'description' => 'nullable|string',
+            'parent_id' => 'nullable|exists:categories,id',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'is_active' => 'boolean',
+        ]);
+
+        $xx = Storage::putFile('public/categories_images', $request->file('image'));
+
+        $data['image'] = $xx;
+
+        Category::create($data);
+
+        flash()->success('Category created successfully.');
+
+        return redirect()->route('admin.category.index');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Category $category)
     {
-        //
+        return view('categories.show', compact('category'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Category $category)
     {
-        //
+        return view('categories.edit',compact('category')
+        );
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Category $category)
     {
-        //
+        if($request->hasfile('image')){
+            $request->validate(['image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048']);
+            Storage::delete($category->image);
+            $xx = Storage::putFile('public/categories_images', $request->file('image'));
+            $category->update(['image' => $xx]);
+        }
+        $data = $request->validate([
+            'name' => 'required|string|max:255',
+            'slug' => 'required|string|unique:categories,slug'.$category->id,
+            'description' => 'nullable|string',
+            'parent_id' => 'nullable|exists:categories,id',
+            'is_active' => 'boolean'
+        ]);
+
+        $category->update($data);
+        flash()->success('Category updated successfully.');
+        return redirect()->route('admin.category.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Category $category)
     {
-        //
+        Storage::delete($category->image);
+        $category->delete();
+        flash()->success('Category deleted successfully.');
+        return redirect()->route('admin.category.index');
     }
 }
