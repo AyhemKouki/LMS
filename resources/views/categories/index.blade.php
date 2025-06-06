@@ -1,5 +1,7 @@
 @extends('users.admin.layout.layout')
 
+@section('title' , 'Categories')
+
 @section('Categories')
 <div class="card">
     <div class="card-header d-flex justify-content-between align-items-center">

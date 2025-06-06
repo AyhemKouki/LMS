@@ -1,6 +1,6 @@
 @extends('users.admin.layout.layout')
 
-@section('title', 'Educore')
+@section('title', 'Dashboard')
 
 @section('content')
 
