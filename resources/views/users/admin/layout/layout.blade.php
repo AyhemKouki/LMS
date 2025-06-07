@@ -245,7 +245,6 @@
     </div>
 
     @yield('content')
-    @yield('Categories')
 </div>
 
 <script src="{{ asset('bootstrap-5.3.5/bootstrap-5.3.5/dist/js/bootstrap.bundle.min.js') }}"></script>
