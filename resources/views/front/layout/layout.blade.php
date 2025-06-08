@@ -116,10 +116,6 @@
     <div class="w-full">
             @yield('home-content')
     </div>
-
-    <div class="container my-5">
-
-    </div>
 </main>
 
 <!-- Footer -->

@@ -12,6 +12,7 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CourseController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest:admin')->prefix('admin')->name('admin.')->group(function () {
@@ -64,6 +65,8 @@ Route::middleware('auth:admin')->prefix('admin')->name('admin.')->group(function
 
     Route::middleware(['auth'])->group(function () {
         Route::resources(['category'=>CategoryController::class]);
+
+        Route::resources(['course' => CourseController::class]);
     });
 
 });

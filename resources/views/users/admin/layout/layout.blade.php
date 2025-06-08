@@ -179,8 +179,7 @@
                 <span>Course Management</span>
             </a>
             <ul class="sidebar-nav-dropdown collapse" id="courseManagement">
-                <li><a href="#" class="sidebar-nav-dropdown-link">All Courses</a></li>
-                <li><a href="#" class="sidebar-nav-dropdown-link">Add New Course</a></li>
+                <li><a href="{{route('admin.course.index')}}" class="sidebar-nav-dropdown-link">Courses</a></li>
                 <li><a href="{{route('admin.category.index')}}" class="sidebar-nav-dropdown-link">Categories</a></li>
             </ul>
         </li>
