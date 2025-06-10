@@ -8,6 +8,10 @@
     <link href="{{asset("https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css")}}" rel="stylesheet">
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Custom CSS -->
     <style>
         body {
@@ -16,6 +20,12 @@
             flex-direction: column;
             min-height: 100vh;
         }
+
+        .social-icon {
+            font-size: 24px;
+            margin-right: 15px;
+        }
+
         .navbar {
             background-color: #fff;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
@@ -93,20 +103,27 @@
                     <a class="nav-link" href="#">Courses</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
+                    <a class="nav-link" href="{{route('about')}}">About</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Blogs</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Contact Us</a>
+                    <a class="nav-link" href="{{route('contact')}}">Contact Us</a>
                 </li>
             </ul>
         </div>
 
-        <div class="d-flex align-items-center">
-            <a href="{{route('login')}}" class="btn btn-signin">Sign In</a>
-        </div>
+        @if(auth()->check())
+            <div class="d-flex align-items-center">
+                <a href="{{route('dashboard')}}" class="btn btn-signin">Dashboard</a>
+            </div>
+        @else
+            <div class="d-flex align-items-center">
+                <a href="{{route('login')}}" class="btn btn-signin">Sign In</a>
+            </div>
+        @endif
+
     </div>
 </nav>
 
@@ -116,6 +133,8 @@
     <div class="w-full">
             @yield('home-content')
     </div>
+
+    @yield('content')
 </main>
 
 <!-- Footer -->
@@ -127,7 +146,23 @@
                 <p>Your trusted partner in innovative e-learning solutions, offering interactive courses, expert-led training, and cutting-edge educational tools to empower learners and educators worldwide.</p>
                 <div class="mt-3">
                     <h6>Follow Us On</h6>
-                    <!-- Social icons would go here -->
+                    <div class="social-links mt-2">
+                        <a href="#" class="text-decoration-none">
+                            <i class="fab fa-facebook-f social-icon"></i>
+                        </a>
+                        <a href="#" class="text-decoration-none">
+                            <i class="fab fa-twitter social-icon"></i>
+                        </a>
+                        <a href="#" class="text-decoration-none">
+                            <i class="fab fa-instagram social-icon"></i>
+                        </a>
+                        <a href="#" class="text-decoration-none">
+                            <i class="fab fa-linkedin-in social-icon"></i>
+                        </a>
+                        <a href="#" class="text-decoration-none">
+                            <i class="fab fa-youtube social-icon"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
             <div class="col-md-2 mb-4">
@@ -146,11 +181,11 @@
             <div class="col-md-4 mb-4">
                 <h5>Connect With Us</h5>
                 <address>
-                    <p>Email us:<br>
+                    <p><i class="fas fa-envelope me-2"></i>Email us:<br>
                         <a href="mailto:kouki.ayhem@etudiant-fst.utm.tn">kouki.ayhem@etudiant-fst.utm.tn</a></p>
-                    <p>Call us:<br>
+                    <p><i class="fas fa-phone me-2"></i>Call us:<br>
                         +216 99 999 999</p>
-                    <p>Address:<br>
+                    <p><i class="fas fa-map-marker-alt me-2"></i>Address:<br>
                         07 rue Badis Ibn Mansour</p>
                 </address>
             </div>
