@@ -202,6 +202,15 @@
                 <span>Settings</span>
             </a>
         </li>
+        <li class="sidebar-nav-item mt-auto">
+            <form action="{{ route('admin.logout') }}" method="post">
+                @csrf
+                <button type="submit" class="sidebar-nav-link w-100 text-start border-0 bg-transparent">
+                    <i class="bi bi-box-arrow-right"></i>
+                    <span>Sign out</span>
+                </button>
+            </form>
+        </li>
     </ul>
 </div>
 
@@ -217,10 +226,11 @@
         </div>
         <div class="d-flex align-items-center">
             <div class="dropdown">
-                <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                <div class="d-flex align-items-center text-decoration-none">
                     <div class="user-avatar">
                         @if(auth()->user()->profile_image)
-                            <img src="{{ auth()->user()->profile_image }}" alt="{{ auth()->user()->name }}" class="rounded-circle" width="40" height="40">
+                            <img src="{{ auth()->user()->profile_image }}" alt="{{ auth()->user()->name }}"
+                                 class="rounded-circle" width="40" height="40">
                         @else
                             {{ substr(auth()->user()->name, 0, 1) }}
                         @endif
@@ -228,17 +238,7 @@
                     <div class="me-2">
                         <div class="fw-bold">{{ auth()->user()->name }}</div>
                     </div>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="userDropdown">
-                    <li>
-                        <form action="{{ route('admin.logout') }}" method="post">
-                            @csrf
-                            <button type="submit" class="dropdown-item text-danger">
-                                <i class="bi bi-box-arrow-right me-2"></i>Logout
-                            </button>
-                        </form>
-                    </li>
-                </ul>
+                </div>
             </div>
         </div>
     </div>
