@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Admin\dashboard\DashboardController;
+use App\Http\Controllers\Admin\dashboard\AdminController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\RegisterController;
 
@@ -61,12 +61,18 @@ Route::middleware('auth:admin')->prefix('admin')->name('admin.')->group(function
     Route::post('logout', [LoginController::class, 'destroy'])
         ->name('logout');
 
-    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('dashboard', [AdminController::class, 'index'])->name('dashboard');
 
     Route::middleware(['auth'])->group(function () {
         Route::resources(['category'=>CategoryController::class]);
 
         Route::resources(['course' => CourseController::class]);
+
+        Route::get('student' ,[AdminController::class, 'students'])->name('student.index');
+        Route::delete('student/{user}', [AdminController::class, 'destroy'])->name('student.destroy');
+        Route::get('instructor', [AdminController::class, 'instructors'])->name('instructor.index');
+        Route::delete('instructor/{user}', [AdminController::class, 'destroy'])->name('instructor.destroy');
+
     });
 
 });

@@ -187,12 +187,11 @@
         <li class="sidebar-nav-item">
             <a class="sidebar-nav-link sidebar-nav-dropdown-toggle" data-bs-toggle="collapse" href="#userManagement" role="button" aria-expanded="false">
                 <i class="bi bi-people"></i>
-                <span>Users/Admins</span>
+                <span>Users</span>
             </a>
             <ul class="sidebar-nav-dropdown collapse" id="userManagement">
-                <li><a href="#" class="sidebar-nav-dropdown-link">All Users</a></li>
-                <li><a href="#" class="sidebar-nav-dropdown-link">Admins</a></li>
-                <li><a href="#" class="sidebar-nav-dropdown-link">Instructors</a></li>
+                <li><a href="{{route('admin.student.index')}}" class="sidebar-nav-dropdown-link">Students</a></li>
+                <li><a href="{{route('admin.instructor.index')}}" class="sidebar-nav-dropdown-link">Instructors</a></li>
             </ul>
         </li>
 
