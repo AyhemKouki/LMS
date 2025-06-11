@@ -7,7 +7,7 @@
             <div class="col-md-3 col-lg-2 bg-white shadow-sm p-3 min-vh-100">
                 <!-- Profile Card -->
                 <div class="text-center mb-4">
-                    <img src="{{ auth()->user()->profile_image }}" class="rounded-circle" width="80" height="80" alt="Avatar">
+                    <img src="{{ asset('storage/'. auth()->user()->profile_image)}}" class="rounded-circle" width="80" height="80" alt="Avatar">
                     <h5 class="mt-2 mb-0">{{auth()->user()->name}}</h5>
                     <small class="text-muted">{{auth()->user()->role}}</small>
                 </div>

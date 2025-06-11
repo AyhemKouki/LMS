@@ -3,12 +3,12 @@
             @csrf
         </form>
 
-        <form method="post" action="{{ route('profile.update') }}" class="mt-4">
-            @csrf
-            @method('patch')
+    <form method="post" action="{{ route('profile.update') }}" class="mt-4" enctype="multipart/form-data">
+        @csrf
+        @method('patch')
 
-            <div class="mb-3">
-                <label for="name" class="form-label fw-medium">{{ __('Name') }}</label>
+        <div class="mb-3">
+        <label for="name" class="form-label fw-medium">{{ __('Name') }}</label>
                 <input type="text" class="form-control py-2" id="name" name="name"
                        value="{{ old('name', $user->name) }}"
                        required autofocus autocomplete="name">
@@ -46,6 +46,14 @@
                         </div>
                     </div>
                 @endif
+            </div>
+
+            <div class="mb-3">
+                <label for="profile_image" class="form-label fw-medium">{{ __('Profile Image') }}</label>
+                <input type="file" class="form-control py-2" id="profile_image" name="profile_image" accept="image/*">
+                @error('profile_image')
+                <div class="invalid-feedback d-block">{{ $message }}</div>
+                @enderror
             </div>
 
             <div class="d-flex align-items-center gap-3">

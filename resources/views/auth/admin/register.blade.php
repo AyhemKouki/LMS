@@ -37,7 +37,7 @@
                     :value="old('email')"
                     required
                     autocomplete="email"
-                    placeholder="your@email.com" />
+                    placeholder="admin@example.com" />
                 <x-input-error :messages="$errors->get('email')" class="mt-1 text-red-600 text-sm" />
             </div>
 
