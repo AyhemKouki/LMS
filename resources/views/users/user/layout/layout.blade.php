@@ -7,9 +7,24 @@
             <div class="col-md-3 col-lg-2 bg-white shadow-sm p-3 min-vh-100">
                 <!-- Profile Card -->
                 <div class="text-center mb-4">
-                    <img src="{{ asset('storage/'. auth()->user()->profile_image)}}" class="rounded-circle" width="80" height="80" alt="Avatar">
+                    @if(auth()->user()->profile_image == "/images/avatar.jpg")
+                        <img src="{{ asset(auth()->user()->profile_image)}}" class="rounded-circle" width="80" height="80" alt="Avatar">
+                    @else
+                        <img src="{{ asset('storage/'. auth()->user()->profile_image)}}" class="rounded-circle" width="80" height="80" alt="Avatar">
+                    @endif
+
                     <h5 class="mt-2 mb-0">{{auth()->user()->name}}</h5>
-                    <small class="text-muted">{{auth()->user()->role}}</small>
+                    <small class="text-muted">
+                        @if(auth()->user()->hasRole('admin'))
+                            Administrator
+                        @elseif(auth()->user()->hasRole('instructor'))
+                            Instructor
+                        @elseif(auth()->user()->hasRole('student'))
+                            Student
+                        @else
+                            {{auth()->user()->role}}
+                        @endif
+                    </small>
                 </div>
 
                 <!-- Sidebar Links -->
@@ -20,9 +35,11 @@
                     <li class="nav-item">
                         <a class="nav-link @if(request()->routeIs('profile.edit')) active text-primary fw-bold @else text-dark @endif" href="{{route('profile.edit')}}"><i class="fas fa-user me-2"></i> Profile</a>
                     </li>
+                    @can('OnlyInstructor')
                     <li class="nav-item">
-                        <a class="nav-link @if(request()->routeIs('courses.*')) active text-primary fw-bold @else text-dark @endif" href="#"><i class="fas fa-book me-2"></i> Courses</a>
+                        <a class="nav-link @if(request()->routeIs('courses.*')) active text-primary fw-bold @else text-dark @endif" href="{{route('courses.index')}}"><i class="fas fa-book me-2"></i> Courses</a>
                     </li>
+                    @endcan
                     <li class="nav-item">
                         <a class="nav-link @if(request()->routeIs('orders.*')) active text-primary fw-bold @else text-dark @endif" href="#"><i class="fas fa-shopping-cart me-2"></i> Orders</a>
                     </li>
@@ -49,8 +66,9 @@
             </div>
 
             <!-- Main Dashboard Content -->
-            <div class="col-md-9 col-lg-10 p-4">
+            <div class="col-md-9 col-lg-10 p-4 ">
                 @yield('profile')
+                @yield('course_content')
             </div>
         </div>
     </div>

@@ -13,6 +13,9 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\Spatie\PermissionController;
+use App\Http\Controllers\Spatie\RoleController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest:admin')->prefix('admin')->name('admin.')->group(function () {
@@ -72,6 +75,18 @@ Route::middleware('auth:admin')->prefix('admin')->name('admin.')->group(function
         Route::delete('student/{user}', [AdminController::class, 'destroy'])->name('student.destroy');
         Route::get('instructor', [AdminController::class, 'instructors'])->name('instructor.index');
         Route::delete('instructor/{user}', [AdminController::class, 'destroy'])->name('instructor.destroy');
+
+        Route::resources(['permission'=>PermissionController::class]);
+        Route::resources(['role'=>RoleController::class]);
+
+
+        Route::get('rolePermission/{role}', [RoleController::class , 'rolePermission'])->name('rolePermission');
+        Route::put('manageRolePermission/{role}', [RoleController::class , 'manageRolePermission'])->name('manageRolePermission');
+
+        Route::get('users', [UserController::class , 'listUsers'])->name('user.list');
+        Route::get('userRole/{user}', [UserController::class , 'userRole'])->name('user.userRole');
+        Route::put('manageUserRole/{user}', [UserController::class , 'manageUserRole'])->name('manageUserRole');
+        Route::delete('users/{user}', [UserController::class , 'destroy'])->name('user.destroy');
 
     });
 

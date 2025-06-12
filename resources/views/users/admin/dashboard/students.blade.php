@@ -25,7 +25,11 @@
                         <tr>
                             <td class="ps-4">{{ $student->id }}</td>
                             <td>
-                                @if($student->profile_image)
+                                @if($student->profile_image == "/images/avatar.jpg")
+                                    <img src="{{ asset($student->profile_image) }}"
+                                         class="rounded me-2" width="100" height="50"
+                                         alt="image">
+                                @else
                                     <img src="{{ asset('storage/' . $student->profile_image) }}"
                                          class="rounded me-2" width="100" height="50"
                                          alt="image">

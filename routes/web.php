@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Course2Controller;
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -13,8 +15,19 @@ Route::get('/home', [PageController::class, 'index'])->name('home');
 Route::get('/about', [PageController::class, 'about'])->name('about');
 Route::get('/contact', [PageController::class, 'contact'])->name('contact');
 
+Route::prefix('courses')->name('courses.')->group(function () {
+    Route::get('/', [Course2Controller::class, 'index_instructor'])->name('index');
+    Route::get('/create', [Course2Controller::class, 'create2'])->name('create');
+    Route::post('/', [CourseController::class, 'store'])->name('store');
+    Route::get('/{course}', [CourseController::class, 'show'])->name('show');
+    Route::get('/{course}/edit', [CourseController::class, 'edit'])->name('edit');
+    Route::put('/{course}', [CourseController::class, 'update'])->name('update');
+    Route::delete('/{course}', [Course2Controller::class, 'destroy'])->name('destroy');
+});
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [UserController::class, 'index'])->name('dashboard');
+
 });
 
 //Route::get('/dashboard', function () {

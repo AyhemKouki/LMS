@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Storage;
 
 class CourseController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      */
@@ -62,7 +63,12 @@ class CourseController extends Controller
 
         flash()->success('Course created successfully.');
 
-        return redirect()->route('admin.course.index');
+        if (auth()->guard('admin')->check()) {
+            return redirect()->route('admin.course.index');
+        }
+        else{
+            return redirect()->route('courses.index');
+        }
     }
 
     /**

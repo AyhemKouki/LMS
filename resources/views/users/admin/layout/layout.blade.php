@@ -196,10 +196,15 @@
         </li>
 
         <li class="sidebar-nav-item">
-            <a href="#" class="sidebar-nav-link">
-                <i class="bi bi-gear"></i>
-                <span>Settings</span>
+            <a class="sidebar-nav-link sidebar-nav-dropdown-toggle" data-bs-toggle="collapse" href="#RolesManagement" role="button" aria-expanded="false">
+                <i class="bi bi-shield-lock"></i>
+                <span>Roles/Permissions</span>
             </a>
+            <ul class="sidebar-nav-dropdown collapse" id="RolesManagement">
+                <li><a href="{{route('admin.role.index')}}" class="sidebar-nav-dropdown-link">Roles</a></li>
+                <li><a href="{{route('admin.permission.index')}}" class="sidebar-nav-dropdown-link">Permissions</a></li>
+                <li><a href="{{route('admin.user.list')}}" class="sidebar-nav-dropdown-link">Users</a></li>
+            </ul>
         </li>
         <li class="sidebar-nav-item mt-auto">
             <form action="{{ route('admin.logout') }}" method="post">

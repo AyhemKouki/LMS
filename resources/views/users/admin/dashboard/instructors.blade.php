@@ -25,11 +25,16 @@
                         <tr>
                             <td class="ps-4">{{ $instructor->id }}</td>
                             <td>
-                                @if($instructor->profile_image)
+                                @if($instructor->profile_image == "/images/avatar.jpg")
+                                    <img src="{{ asset($instructor->profile_image) }}"
+                                         class="rounded me-2" width="100" height="50"
+                                         alt="image">
+                                @else
                                     <img src="{{ asset('storage/' . $instructor->profile_image) }}"
                                          class="rounded me-2" width="100" height="50"
                                          alt="image">
                                 @endif
+
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
