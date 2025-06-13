@@ -61,7 +61,7 @@ class CourseController extends Controller
 
         Course::create($data);
 
-        flash()->success('Course created successfully.');
+        flash()->position('bottom-right')->success('Course created successfully.');
 
         if (auth()->guard('admin')->check()) {
             return redirect()->route('admin.course.index');

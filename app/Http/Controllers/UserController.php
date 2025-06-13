@@ -30,6 +30,9 @@ class UserController extends Controller
     {
         $user->syncRoles($request->roles);
 
+        $user->role = $request->roles[0] ?? 'student';
+        $user->save();
+
         flash()->success('User Role Updated Successfully');
         return redirect()->route('admin.user.list');
 
@@ -41,7 +44,5 @@ class UserController extends Controller
         flash()->success('User Deleted Successfully');
         return redirect()->route('admin.user.list');
     }
-
-
 
 }

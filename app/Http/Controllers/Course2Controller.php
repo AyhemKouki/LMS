@@ -48,6 +48,8 @@ class Course2Controller extends Controller
         }
 
         $course->delete();
-        return redirect()->route('courses.index')->with('success' , 'Course Deleted Successfully');
+
+        flash()->position('bottom-right')->success('Course deleted successfully.');
+        return redirect()->route('courses.index');
     }
 }

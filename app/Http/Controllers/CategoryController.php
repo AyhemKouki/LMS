@@ -14,7 +14,12 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::paginate(5);
-        return view('categories.index', compact('categories'));
+        $totalCategories = Category::count();
+        $activeCategories = Category::where('is_active' , true)->count();
+        $inactiveCategories = Category::where('is_active' , false)->count();
+        $parentCategories = Category::whereNull('parent_id')->count();
+
+        return view('categories.index', compact('categories', 'totalCategories', 'activeCategories', 'inactiveCategories', 'parentCategories'));
     }
 
     /**
