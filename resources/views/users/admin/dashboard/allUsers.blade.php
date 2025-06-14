@@ -1,29 +1,29 @@
 @extends('users.admin.dashboard.userManagement')
-@section('instructorloop')
-    @foreach($instructors as $instructor)
+@section('userloop')
+    @foreach($users as $user)
         <tr>
             <td>
                 <div class="user-info">
-                    @if($instructor->profile_image == "/images/avatar.jpg")
-                        <img src="{{ asset($instructor->profile_image) }}"
+                    @if($user->profile_image == "/images/avatar.jpg")
+                        <img src="{{ asset($user->profile_image) }}"
                              class="user-avatar"
                              alt="image">
                     @else
-                        <img src="{{ asset('storage/' . $instructor->profile_image) }}"
+                        <img src="{{ asset('storage/' . $user->profile_image) }}"
                              class="user-avatar"
                              alt="image">
                     @endif
 
                     <div>
-                        <div class="user-name">{{ $instructor->name }}</div>
-                        <div class="user-role">{{ $instructor->role }}</div>
+                        <div class="user-name">{{ $user->name }}</div>
+                        <div class="user-role">{{ $user->role }}</div>
                     </div>
                 </div>
             </td>
-            <td>{{ $instructor->email }}</td>
+            <td>{{ $user->email }}</td>
 
 
-            <td>{{ $instructor->created_at }}</td>
+            <td>{{ $user->created_at }}</td>
             <td>
                 <div class="action-buttons-table">
                     <a href="#" class="action-btn view"
@@ -31,12 +31,12 @@
                         <i class="fas fa-eye"></i>
                     </a>
 
-                    <form action="{{ route('admin.instructor.destroy', $instructor->id) }}" method="POST"
+                    <form action="{{ route('admin.student.destroy', $user->id) }}" method="POST"
                           class="d-inline">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="action-btn delete" title="Delete"
-                                onclick="return confirm('Are you sure you want to delete {{ $instructor->name }}?')">
+                                onclick="return confirm('Are you sure you want to delete {{ $user->name }}?')">
                             <i class="fas fa-trash"></i>
                         </button>
                     </form>

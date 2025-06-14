@@ -4,8 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ asset('bootstrap-5.3.5/bootstrap-5.3.5/dist/css/bootstrap.min.css') }}">
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <title>EduCore</title>
     <style>
         * {
@@ -171,7 +179,7 @@
 
     <ul class="sidebar-nav">
         <li class="sidebar-nav-item">
-            <a href="{{route('admin.dashboard')}}" class="sidebar-nav-link active">
+            <a href="{{route('admin.dashboard')}}" class="sidebar-nav-link ">
                 <i class="bi bi-speedometer2"></i>
                 <span>Dashboard</span>
             </a>
@@ -196,14 +204,10 @@
         </li>
 
         <li class="sidebar-nav-item">
-            <a class="sidebar-nav-link sidebar-nav-dropdown-toggle" data-bs-toggle="collapse" href="#userManagement" role="button" aria-expanded="false">
+            <a href ="{{route('admin.alluser.index')}}" class="sidebar-nav-link " >
                 <i class="bi bi-people"></i>
-                <span>Users</span>
+                Users
             </a>
-            <ul class="sidebar-nav-dropdown collapse" id="userManagement">
-                <li><a href="{{route('admin.student.index')}}" class="sidebar-nav-dropdown-link">Students</a></li>
-                <li><a href="{{route('admin.instructor.index')}}" class="sidebar-nav-dropdown-link">Instructors</a></li>
-            </ul>
         </li>
 
         <li class="sidebar-nav-item">

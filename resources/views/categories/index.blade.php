@@ -391,17 +391,17 @@
 
                             <td class="text-center">
                                 <a href="{{route('admin.category.show', $category->id)}}" class="action-btn view" title="View">
-                                    <i class="bi bi-eye"></i>
+                                    <i class="fas fa-eye"></i>
                                 </a>
                                 <a href="{{route('admin.category.edit', $category->id)}}" class="action-btn edit" title="Edit">
-                                    <i class="bi bi-pencil"></i>
+                                    <i class="fas fa-pencil"></i>
                                 </a>
                                 <form action="{{ route('admin.category.destroy', $category->id) }}" method="POST"
                                       class="d-inline delete-form">
                                     @csrf
                                     @method('DELETE')
                                     <button type="button" class="action-btn delete" title="Delete">
-                                        <i class="bi bi-trash"></i>
+                                        <i class="fas fa-trash"></i>
                                     </button>
                                 </form>
 

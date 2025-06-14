@@ -71,6 +71,7 @@ Route::middleware('auth:admin')->prefix('admin')->name('admin.')->group(function
 
         Route::resources(['course' => CourseController::class]);
 
+        Route::get('alluser', [AdminController::class , 'users'])->name('alluser.index');
         Route::get('student' ,[AdminController::class, 'students'])->name('student.index');
         Route::delete('student/{user}', [AdminController::class, 'destroy'])->name('student.destroy');
         Route::get('instructor', [AdminController::class, 'instructors'])->name('instructor.index');

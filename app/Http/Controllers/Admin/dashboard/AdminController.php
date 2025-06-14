@@ -13,15 +13,21 @@ class AdminController extends Controller
         return view('users.admin.dashboard.index');
     }
 
+    public function users()
+    {
+        $users = User::paginate(5);
+        return view('users.admin.dashboard.allUsers' , compact('users'));
+    }
+
     public function students()
     {
-        $students = User::where('role', 'student')->paginate();
+        $students = User::where('role', 'student')->paginate(5);
         return view('users.admin.dashboard.students' , compact('students'));
     }
 
     public function instructors()
     {
-        $instructors = User::where('role', 'instructor')->paginate();
+        $instructors = User::where('role', 'instructor')->paginate(5);
         return view('users.admin.dashboard.instructors' , compact('instructors'));
 
     }
