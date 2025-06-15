@@ -13,6 +13,7 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\InstructorRequestController;
 use App\Http\Controllers\Spatie\PermissionController;
 use App\Http\Controllers\Spatie\RoleController;
 use App\Http\Controllers\UserController;
@@ -89,6 +90,14 @@ Route::middleware('auth:admin')->prefix('admin')->name('admin.')->group(function
         Route::put('manageUserRole/{user}', [UserController::class , 'manageUserRole'])->name('manageUserRole');
         Route::delete('users/{user}', [UserController::class , 'destroy'])->name('user.destroy');
 
+
+        Route::get('/instructor-requests', [InstructorRequestController::class, 'index'])->name('instructor-requests.index');
+        Route::get('/instructor-requests/{instructorRequest}', [InstructorRequestController::class, 'show'])->name('instructor-requests.show');
+        Route::patch('/instructor-requests/{instructorRequest}/status', [InstructorRequestController::class, 'updateStatus'])->name('instructor-requests.update-status');
+
     });
+
+
+
 
 });

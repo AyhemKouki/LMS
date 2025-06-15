@@ -186,7 +186,7 @@
         </li>
 
         <li class="sidebar-nav-item">
-            <a href="#" class="sidebar-nav-link">
+            <a href="{{ route('admin.instructor-requests.index') }}" class="sidebar-nav-link">
                 <i class="bi bi-person-vcard"></i>
                 <span>Instructor Requests</span>
             </a>

@@ -55,6 +55,23 @@
                     <li class="nav-item">
                         <a class="nav-link @if(request()->routeIs('reviews.*')) active text-primary fw-bold @else text-dark @endif" href="#"><i class="fas fa-star me-2"></i> Reviews</a>
                     </li>
+                    @if(!auth()->user()->hasRole('instructor'))
+                        @if(!auth()->user()->instructorRequest || auth()->user()->instructorRequest->status === 'rejected')
+                            <li class="nav-item">
+                                <a class="nav-link @if(request()->routeIs('instructor.request.create')) active text-primary fw-bold @else text-dark @endif"
+                                   href="{{ route('instructor.request.create') }}">
+                                    <i class="fas fa-chalkboard-teacher me-2"></i> Become Instructor
+                                </a>
+                            </li>
+                        @endif
+                    @endif
+                    @if(auth()->user()->instructorRequest && auth()->user()->instructorRequest->status === 'pending')
+                    <li class="nav-item">
+                        <span class="nav-link text-warning">
+                                <i class="fas fa-clock me-2"></i> Instructor Request Pending
+                            </span>
+                        </li>
+                    @endif
                     <li class="nav-item mt-2">
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
@@ -69,6 +86,7 @@
             <div class="col-md-9 col-lg-10 p-4 ">
                 @yield('profile')
                 @yield('course_content')
+                @yield('content2')
             </div>
         </div>
     </div>

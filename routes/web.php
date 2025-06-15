@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Course2Controller;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\InstructorRequestController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -24,6 +25,12 @@ Route::prefix('courses')->name('courses.')->group(function () {
     Route::put('/{course}', [CourseController::class, 'update'])->name('update');
     Route::delete('/{course}', [Course2Controller::class, 'destroy'])->name('destroy');
 });
+
+Route::middleware('auth')->group(function () {
+    Route::get('/instructor/request', [InstructorRequestController::class, 'create'])->name('instructor.request.create');
+    Route::post('/instructor/request', [InstructorRequestController::class, 'store'])->name('instructor.request.store');
+});
+
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [UserController::class, 'index'])->name('dashboard');
