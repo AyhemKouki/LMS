@@ -24,7 +24,7 @@
 
                             <td>{{ $student->created_at }}</td>
                             <td>
-                                <div class="action-buttons-table">
+                                <div class="action-buttons">
                                     <a href="#" class="action-btn view"
                                        title="View">
                                         <i class="fas fa-eye"></i>
