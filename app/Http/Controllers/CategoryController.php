@@ -51,7 +51,7 @@ class CategoryController extends Controller
 
         Category::create($data);
 
-        flash()->success('Category created successfully.');
+        flash()->options(["position" => "bottom-right"])->success('Category created successfully.');
 
         return redirect()->route('admin.category.index');
     }
@@ -93,7 +93,7 @@ class CategoryController extends Controller
         ]);
 
         $category->update($data);
-        flash()->success('Category updated successfully.');
+        flash()->options(["position" => "bottom-right"])->success('Category updated successfully.');
         return redirect()->route('admin.category.index');
     }
 
@@ -104,7 +104,7 @@ class CategoryController extends Controller
     {
         Storage::delete($category->image);
         $category->delete();
-        flash()->success('Category deleted successfully.');
+        flash()->options(["position" => "bottom-right"])->success('Category deleted successfully.');
         return redirect()->route('admin.category.index');
     }
 }

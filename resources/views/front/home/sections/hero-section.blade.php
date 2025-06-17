@@ -65,7 +65,7 @@
         margin-bottom: 1.8rem;
         line-height: 1.2;
         position: relative;
-        background: linear-gradient(45deg, #2c3e50, #3498db);
+        background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         animation: fadeInUp 1s ease-out;
@@ -81,7 +81,7 @@
     }
 
     .cta-button {
-        background: linear-gradient(45deg, #2c3e50, #3498db);
+        background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
         color: white;
         padding: 18px 45px;
         border-radius: 50px;
@@ -98,7 +98,7 @@
         transform: translateY(-3px);
         box-shadow: 0 15px 30px rgba(0,0,0,0.15);
         color: white;
-        background: linear-gradient(45deg, #3498db, #2c3e50);
+        background: linear-gradient(135deg,  #2a5298 0% , #1e3c72 100%);
     }
 
     @keyframes fadeInUp {
