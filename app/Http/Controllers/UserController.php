@@ -33,7 +33,7 @@ class UserController extends Controller
         $user->role = $request->roles[0] ?? 'student';
         $user->save();
 
-        flash()->success('User Role Updated Successfully');
+        flash()->options(["position" => "bottom-right"])->success('User Role Updated Successfully');
         return redirect()->route('admin.user.list');
 
     }
@@ -41,7 +41,7 @@ class UserController extends Controller
     {
         Storage::delete($user->profile_image);
         $user->delete();
-        flash()->success('User Deleted Successfully');
+        flash()->options(["position" => "bottom-right"])->success('User Deleted Successfully');
         return redirect()->route('admin.user.list');
     }
 

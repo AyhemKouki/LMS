@@ -27,7 +27,7 @@ class RoleController extends Controller
             'name' => ['required', 'string', 'max:255', 'unique:roles'],
         ]);
         Role::create($validated);
-        flash()->success('Role created successfully.');
+        flash()->options(["position" => "bottom-right"])->success('Role created successfully.');
         return redirect()->route('admin.role.index');
     }
 
@@ -42,14 +42,14 @@ class RoleController extends Controller
             'name' => ['required', 'string', 'max:255', 'unique:roles'],
         ]);
         $role->update($validated);
-        flash()->success('Role updated successfully.');
+        flash()->options(["position" => "bottom-right"])->success('Role updated successfully.');
         return redirect()->route('admin.role.index');
     }
 
     public function destroy(Role $role)
     {
         $role->delete();
-        flash()->success('Role deleted successfully.');
+        flash()->options(["position" => "bottom-right"])->success('Role deleted successfully.');
         return redirect()->route('admin.role.index');
     }
 
@@ -63,7 +63,7 @@ class RoleController extends Controller
     public function manageRolePermission(Request $request , Role $role)
     {
         $role->syncPermissions($request->permissions);
-        flash()->success('Role Permission Updated Successfully');
+        flash()->options(["position" => "bottom-right"])->success('Role Permission Updated Successfully');
         return redirect()->route('admin.role.index');
     }
 }

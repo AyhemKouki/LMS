@@ -27,6 +27,10 @@ class AppServiceProvider extends ServiceProvider
             return $user->hasRole('instructor');
         });
 
+        Gate::define('OnlyInstructorLesson', function ( User $user) {
+            return $user->hasRole('instructor') ;
+        });
+
         View::composer('users.admin.layout.layout', NotificationComposer::class);
 
     }

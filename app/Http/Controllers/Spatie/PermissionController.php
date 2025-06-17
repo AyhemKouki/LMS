@@ -26,9 +26,10 @@ class PermissionController extends Controller
             'name' => ['required', 'string', 'max:255', 'unique:permissions'],
         ]);
 
+        $validated['guard_name'] = 'web';
         Permission::create($validated);
 
-        flash()->success('Permission created successfully.');
+        flash()->options(["position" => "bottom-right"])->success('Permission created successfully.');
 
         return redirect()->route('admin.permission.index');
     }
@@ -44,14 +45,14 @@ class PermissionController extends Controller
             'name' => ['required', 'string', 'max:255', 'unique:permissions'],
         ]);
         $permission->update($validated);
-        flash()->success('Permission updated successfully.');
+        flash()->options(["position" => "bottom-right"])->success('Permission updated successfully.');
         return redirect()->route('admin.permission.index');
     }
 
     public function destroy(Permission $permission)
     {
         $permission->delete();
-        flash()->success('Permission deleted successfully.');
+        flash()->options(["position" => "bottom-right"])->success('Permission deleted successfully.');
         return redirect()->route('admin.permission.index');
     }
 }

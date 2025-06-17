@@ -36,10 +36,19 @@
                         <a class="nav-link @if(request()->routeIs('profile.edit')) active text-primary fw-bold @else text-dark @endif" href="{{route('profile.edit')}}"><i class="fas fa-user me-2"></i> Profile</a>
                     </li>
                     @can('OnlyInstructor')
-                    <li class="nav-item">
-                        <a class="nav-link @if(request()->routeIs('courses.*')) active text-primary fw-bold @else text-dark @endif" href="{{route('courses.index')}}"><i class="fas fa-book me-2"></i> Courses</a>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link @if(request()->routeIs('courses.*')) active text-primary fw-bold @else text-dark @endif"
+                               href="{{route('courses.index')}}"><i class="fas fa-book me-2"></i> Courses</a>
+                        </li>
                     @endcan
+
+                    @can('OnlyInstructorLesson')
+                        <li class="nav-item">
+                            <a class="nav-link @if(request()->routeIs('lesson.*')) active text-primary fw-bold @else text-dark @endif"
+                               href="{{route('lesson.index')}}"><i class="fas fa-chalkboard me-2"></i> Lessons</a>
+                        </li>
+                    @endcan
+
                     <li class="nav-item">
                         <a class="nav-link @if(request()->routeIs('orders.*')) active text-primary fw-bold @else text-dark @endif" href="#"><i class="fas fa-shopping-cart me-2"></i> Orders</a>
                     </li>
