@@ -17,6 +17,8 @@ Route::get('/home', [PageController::class, 'index'])->name('home');
 Route::get('/about', [PageController::class, 'about'])->name('about');
 Route::get('/contact', [PageController::class, 'contact'])->name('contact');
 
+Route::get('/courses-page', [CourseController::class, 'index2'])->name('coursespage.index');
+
 Route::prefix('courses')->name('courses.')->group(function () {
     Route::get('/', [Course2Controller::class, 'index_instructor'])->name('index');
     Route::get('/create', [Course2Controller::class, 'create2'])->name('create');

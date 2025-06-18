@@ -103,7 +103,7 @@
                     <a class="nav-link" href="{{route('home')}}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Courses</a>
+                    <a class="nav-link" href="{{route('coursespage.index')}}">Courses</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('about')}}">About</a>

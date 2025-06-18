@@ -132,4 +132,42 @@ class CourseController extends Controller
         flash()->success('Course deleted successfully.');
         return redirect()->route('admin.course.index');
     }
+
+    public function index2(Request $request)
+    {
+        $query = Course::query();
+
+        // Category filter
+        if ($request->filled('categories')) {
+            $query->whereIn('category_id', (array)$request->categories);
+        }
+
+        // Level filter
+        if ($request->filled('levels')) {
+            $query->whereIn('level', (array)$request->levels);
+        }
+
+        // Price range filter
+        if ($request->filled('price_min')) {
+            $query->where('price', '>=', $request->price_min);
+        }
+
+        if ($request->filled('price_max')) {
+            $query->where('price', '<=', $request->price_max);
+        }
+
+        // Rating filter (you'll need to implement rating logic)
+        if ($request->filled('min_rating')) {
+            $query->whereHas('reviews', function($q) use ($request) {
+                $q->havingRaw('AVG(rating) >= ?', [$request->min_rating]);
+            });
+        }
+
+        $courses = $query->paginate(12); // Use pagination for better performance
+        $categories = Category::all();
+
+        return view('front.pages.course', compact('courses', 'categories'));
+    }
+
+
 }
