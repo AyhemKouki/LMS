@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\Course2Controller;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\InstructorRequestController;
@@ -39,6 +40,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [UserController::class, 'index'])->name('dashboard');
 
     Route::resources(['lesson' => LessonController::class]);
+
+    // cart routes
+    Route::get('/add-to-cart/{id}', [CartController::class, 'addToCart'])->name('addToCart');
+    Route::get('/cart', [CartController::class, 'cart'])->name('cart');
+    Route::post('/order', [CartController::class, 'order'])->name('order.post');
+    Route::get('/order-success', [CartController::class, 'orderSuccess'])->name('order.success');
+    Route::delete('/remove-from-cart/{id}', [CartController::class, 'removeFromCart'])->name('removeFromCart');
+
 
 });
 

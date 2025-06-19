@@ -17,6 +17,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Custom CSS -->
     <style>
+        .dropdown-toggle.no-caret::after {
+            display: none;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
@@ -118,9 +122,46 @@
         </div>
 
         @if(auth()->check())
-            <div class="d-flex align-items-center">
-                <a href="{{route('dashboard')}}" class="btn btn-signin">Dashboard</a>
+            <div class="d-flex align-items-center gap-4">
+                <div class="dropdown">
+                    <a href="#" class="position-relative text-dark text-decoration-none dropdown-toggle no-caret"
+                       id="cartDropdown" data-bs-toggle="dropdown">
+                        <i class="bi bi-cart3 fs-4 hover-opacity-75"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            {{ count(session('cart', [])) }}
+                        </span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end p-3" style="min-width: 300px;">
+                        @if(session('cart'))
+                            @foreach(session('cart') as $id => $details)
+                                <div class="row cart-item mb-3">
+                                    <div class="col-4">
+                                        <img src="{{ asset("storage/".$details['image']) }}" alt="{{ $details['name'] }}"
+                                             class="img-fluid rounded">
+                                    </div>
+                                    <div class="col-8">
+                                        <h6 class="mb-1">{{ $details['name'] }}</h6>
+                                        <p class="mb-1">${{ $details['price'] }}</p>
+                                    </div>
+                                </div>
+                            @endforeach
+                            <div class="dropdown-divider"></div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span>Total: ${{ array_sum(array_column(session('cart'), 'price')) }}</span>
+                                <a href="{{route('cart')}}" class="btn btn-primary btn-sm">View all</a>
+                            </div>
+                        @else
+                            <p class="text-center mb-0">Your cart is empty</p>
+                        @endif
+                    </div>
+                </div>
+
+
+                <div class="d-flex align-items-center">
+                    <a href="{{route('dashboard')}}" class="btn btn-signin">Dashboard</a>
+                </div>
             </div>
+
         @else
             <div class="d-flex align-items-center">
                 <a href="{{route('login')}}" class="btn btn-signin">Sign In</a>

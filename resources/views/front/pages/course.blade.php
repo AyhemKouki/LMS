@@ -343,6 +343,7 @@
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 4px 6px rgba(110, 142, 251, 0.2);
+            text-decoration: none;
         }
 
         .enroll-btn:hover {
@@ -585,7 +586,9 @@
                                         <span class="price-original">${{ $course->original_price }}</span>
                                     @endif
                                 </div>
-                                <button class="enroll-btn">Enroll</button>
+                                @if(auth()->user() && auth()->user()->role == "student")
+                                    <a href="{{route('addToCart' , $course->id)}}" class="enroll-btn">Add to cart</a>
+                                @endif
                             </div>
 
 
