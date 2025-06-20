@@ -25,10 +25,7 @@
                             <td>{{ $student->created_at }}</td>
                             <td>
                                 <div class="action-buttons">
-                                    <a href="#" class="action-btn view"
-                                       title="View">
-                                        <i class="fas fa-eye"></i>
-                                    </a>
+
 
                                     <form action="{{ route('admin.student.destroy', $student->id) }}" method="POST"
                                           class="d-inline">

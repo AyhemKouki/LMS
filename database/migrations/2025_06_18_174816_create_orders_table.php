@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->integer('amount')->nullable();
             $table->tinyInteger('status')->default(0);
             $table->text('stripe_id')->nullable();
@@ -22,8 +22,8 @@ return new class extends Migration
 
         Schema::create('order_courses', function (Blueprint $table) {
             $table->id();
-            $table->integer('order_id')->constrained()->onDelete('cascade');
-            $table->integer('course_id')->constrained()->onDelete('cascade');
+            $table->foreignId('order_id')->constrained()->onDelete('cascade');
+            $table->foreignId('course_id')->constrained()->onDelete('cascade');
             $table->integer('quantity')->nullable();
             $table->integer('price')->nullable();
             $table->timestamps();
@@ -36,5 +36,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('orders');
+        Schema::dropIfExists('order_courses');
     }
 };

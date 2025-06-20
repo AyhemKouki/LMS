@@ -42,17 +42,7 @@
                                                    class="btn btn-sm btn-outline-info">
                                                     <i class="fas fa-edit"></i> Manage Roles
                                                 </a>
-                                                <form action="{{ route('admin.user.destroy', $user->id) }}"
-                                                      method="POST"
-                                                      class="d-inline">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit"
-                                                            class="btn btn-sm btn-outline-danger"
-                                                            onclick="return confirm('Are you sure you want to delete this user?')">
-                                                        <i class="fas fa-trash"></i> Delete
-                                                    </button>
-                                                </form>
+
                                             </div>
                                         </td>
                                     </tr>

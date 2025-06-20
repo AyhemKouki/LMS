@@ -97,12 +97,8 @@
                             <td>{{ $course->created_at->format('d M Y') }}</td>
                             <td class="text-end pe-4">
                                 <div class="d-flex justify-content-end">
-                                    <a href="#"
-                                       class="btn btn-sm btn-outline-light border text-primary rounded-circle me-1"
-                                       data-bs-toggle="tooltip" title="View">
-                                        <i class="bi bi-eye"></i>
-                                    </a>
-                                    <a href="#"
+
+                                    <a href="{{route('courses.edit2' , $course->id)}}"
                                        class="btn btn-sm btn-outline-light border text-secondary rounded-circle me-1"
                                        data-bs-toggle="tooltip" title="Edit">
                                         <i class="bi bi-pencil"></i>

@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Course;
+use App\Models\Lesson;
+use App\Models\Order;
+use App\Models\OrderCourse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -44,6 +47,7 @@ class CourseController extends Controller
             'price' => 'required|numeric',
             'is_approved' => 'string',
             'category_id' => 'required|exists:categories,id',
+            'has_certificate' => 'boolean',
         ]);
 
         if ($request->hasFile('thumbnail')) {
@@ -74,9 +78,9 @@ class CourseController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Course $course)
     {
-        return view('courses.show');
+        return view('courses.show' , compact('course'));
     }
 
     /**
@@ -86,6 +90,12 @@ class CourseController extends Controller
     {
         $categories = Category::all();
         return view('courses.edit', compact('course','categories'));
+    }
+
+    public function edit2(Course $course)
+    {
+        $categories = Category::all();
+        return view('courses.edit_instructor', compact('course','categories'));
     }
 
     /**
@@ -111,11 +121,19 @@ class CourseController extends Controller
             'category_id' => 'required|exists:categories,id',
         ]);
 
+        $data['has_certificate'] = $request->has('has_certificate');
+
         $course->update($data);
 
-        flash()->success('Course updated successfully.');
+        flash()->position('bottom-right')->success('Course updated successfully.');
 
-        return redirect()->route('admin.course.index');
+
+        if (auth()->guard('admin')->check()) {
+            return redirect()->route('admin.course.index');
+        }
+        else{
+            return redirect()->route('courses.index');
+        }
     }
 
     /**
@@ -129,7 +147,7 @@ class CourseController extends Controller
         }
 
         $course->delete();
-        flash()->success('Course deleted successfully.');
+        flash()->position('bottom-right')->success('Course deleted successfully.');
         return redirect()->route('admin.course.index');
     }
 
@@ -156,7 +174,7 @@ class CourseController extends Controller
             $query->where('price', '<=', $request->price_max);
         }
 
-        // Rating filter (you'll need to implement rating logic)
+        // Rating filter (i didnt implement rating yet)
         if ($request->filled('min_rating')) {
             $query->whereHas('reviews', function($q) use ($request) {
                 $q->havingRaw('AVG(rating) >= ?', [$request->min_rating]);
@@ -169,5 +187,26 @@ class CourseController extends Controller
         return view('front.pages.course', compact('courses', 'categories'));
     }
 
+
+    public function mycourses()
+    {
+        $orders = Order::where('user_id', auth()->id())->get();
+        $courses = collect();
+
+        foreach ($orders as $order) {
+            $orderCourses = OrderCourse::where('order_id', $order->id)
+                ->with('course')
+                ->get()
+                ->pluck('course');
+            $courses = $courses->concat($orderCourses);
+        }
+
+        return view('users.user.course.mycourses', compact('courses'));
+    }
+
+    public function watchLesson(Lesson $lesson)
+    {
+        return view('users.user.course.watchLesson' , compact('lesson'));
+    }
 
 }

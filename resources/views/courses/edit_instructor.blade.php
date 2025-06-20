@@ -1,14 +1,14 @@
-@extends('users.admin.layout.layout')
+@extends('users.user.layout.layout')
 
 @section('title', 'Edit Course')
 
-@section('content')
+@section('content2')
     <div class="card">
         <div class="card-header bg-white py-3">
             <h5 class="mb-0">Edit Course</h5>
         </div>
         <div class="card-body">
-            <form action="{{ route('admin.course.update', $course) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('courses.update', $course) }}" method="POST" enctype="multipart/form-data">
             @csrf
                 @method('PUT')
 
@@ -172,7 +172,7 @@
                 </div>
 
                 <div class="d-flex justify-content-end">
-                    <a href="{{ route('admin.course.index') }}" class="btn btn-light me-2">Cancel</a>
+                    <a href="{{ route('courses.index') }}" class="btn btn-light me-2">Cancel</a>
                     <button type="submit" class="btn btn-primary">Save Course</button>
                 </div>
             </form>

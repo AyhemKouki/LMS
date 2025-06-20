@@ -12,4 +12,8 @@ class OrderCourse extends Model
         'quantity',
         'price',
     ];
+    public function course()
+    {
+        return $this->belongsTo(Course::class);
+    }
 }

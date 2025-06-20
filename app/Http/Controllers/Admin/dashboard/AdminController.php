@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin\dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\Course;
 use App\Models\User;
+use App\Models\Lesson;
 use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
@@ -36,13 +38,16 @@ class AdminController extends Controller
     {
         Storage::delete($user->profile_image);
         $role = $user->role;
-        $user->delete();
         if ($role == 'student') {
-            flash()->success('Student Deleted Successfully');
+            $user->delete();
+            flash()->options(['position'=>'bottom-right'])->success('Student Deleted Successfully');
             return redirect()->route('admin.student.index');
         }
         else{
-            flash()->success(' Instrucor Deleted Successfully');
+            Lesson::where('user_id', $user->id)->delete();
+            Course::where('user_id', $user->id)->delete();
+            $user->delete();
+            flash()->options(['position' => 'bottom-right'])->success('Instructor Deleted Successfully');
             return redirect()->route('admin.instructor.index');
         }
 

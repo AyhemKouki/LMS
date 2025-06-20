@@ -26,7 +26,7 @@ class RoleController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255', 'unique:roles'],
         ]);
-        Role::create($validated);
+        Role::create($validated + ['guard_name' => 'web']);
         flash()->options(["position" => "bottom-right"])->success('Role created successfully.');
         return redirect()->route('admin.role.index');
     }

@@ -4,6 +4,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\Course2Controller;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\InstructorRequestController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -24,10 +25,16 @@ Route::prefix('courses')->name('courses.')->group(function () {
     Route::get('/', [Course2Controller::class, 'index_instructor'])->name('index');
     Route::get('/create', [Course2Controller::class, 'create2'])->name('create');
     Route::post('/', [CourseController::class, 'store'])->name('store');
+
+    Route::get('/mycourses', [CourseController::class, 'mycourses'])->name('mycourses');
+    Route::get('/watchLesson/{lesson}', [CourseController::class, 'watchLesson'])->name('watchLesson');
+
     Route::get('/{course}', [CourseController::class, 'show'])->name('show');
     Route::get('/{course}/edit', [CourseController::class, 'edit'])->name('edit');
+    Route::get('/{course}/edit2', [CourseController::class, 'edit2'])->name('edit2');
     Route::put('/{course}', [CourseController::class, 'update'])->name('update');
     Route::delete('/{course}', [Course2Controller::class, 'destroy'])->name('destroy');
+
 });
 
 Route::middleware('auth')->group(function () {
@@ -48,6 +55,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/order-success', [CartController::class, 'orderSuccess'])->name('order.success');
     Route::delete('/remove-from-cart/{id}', [CartController::class, 'removeFromCart'])->name('removeFromCart');
 
+
+    Route::resources(['orders' => OrderController::class]);
 
 });
 
