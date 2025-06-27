@@ -10,6 +10,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LessonController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RatingController;
 
 Route::get('/', function () {
     return view('front.home.index');
@@ -68,6 +69,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+// rating routes
+
+Route::middleware('auth')->group(function () {
+    Route::post('/courses/{course}/ratings', [RatingController::class, 'store'])->name('ratings.store');
+    Route::delete('/courses/{course}/ratings', [RatingController::class, 'destroy'])->name('ratings.destroy');
 });
 
 require __DIR__.'/auth.php';

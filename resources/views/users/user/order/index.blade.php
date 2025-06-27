@@ -30,8 +30,8 @@
                         <td>${{ number_format($order->amount, 2) }}</td>
                         <td>
                                 <span
-                                    class="badge bg-{{ $order->status === 1 ? 'success' : ($order->status === 'pending' ? 'warning' : 'danger') }}">
-                                    completed
+                                    class="badge bg-{{ $order->status === 1 ? 'success' : 'danger' }}">
+                                    {{ $order->status === 1 ? 'completed' : 'canceled' }}
                                 </span>
                         </td>
 

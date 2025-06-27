@@ -385,12 +385,27 @@
         .rating-stars {
             color: #f59e0b;
             font-size: 0.875rem;
+            display: flex;
+            gap: 2px;
+        }
+
+        .rating-stars .star {
+            font-size: 1rem;
+        }
+
+        .rating-stars .star.filled {
+            color: #f59e0b;
+        }
+
+        .rating-stars .star.empty {
+            color: #e2e8f0;
         }
 
         .rating-value {
             font-weight: 600;
             font-size: 0.875rem;
             color: #1e293b;
+            margin-left: 4px;
         }
 
         .rating-count {
@@ -484,7 +499,7 @@
         </div>
 
         <div class="page-layout">
-            <!-- Replace your filter-sidebar content with this -->
+
             <aside class="filter-sidebar">
                 <form id="filterForm" method="GET" action="{{ route('coursespage.index') }}">
                     <div class="filter-section">
@@ -530,22 +545,6 @@
                         </div>
                     </div>
 
-                    <div class="filter-section">
-                        <h3>Rating</h3>
-                        <div class="filter-options">
-                            <label class="filter-checkbox">
-                                <input type="checkbox" name="min_rating" value="4"
-                                    {{ request('min_rating') == '4' ? 'checked' : '' }}>
-                                <span>4+ Stars</span>
-                            </label>
-                            <label class="filter-checkbox">
-                                <input type="checkbox" name="min_rating" value="3"
-                                    {{ request('min_rating') == '3' ? 'checked' : '' }}>
-                                <span>3+ Stars</span>
-                            </label>
-                        </div>
-                    </div>
-
                     <button type="submit" class="enroll-btn" style="width: 100%; margin-top: 1rem;">
                         Apply Filters
                     </button>
@@ -567,10 +566,19 @@
 
                             <div class="course-rating">
                                 <div class="rating-stars">
-                                    ★★★★☆
+                                    @php
+                                        $averageRating = round($course->ratings()->avg('rating'));
+                                        $ratingsCount = $course->ratings()->count();
+                                    @endphp
+                                    @for($i = 1; $i <= 5; $i++)
+                                        <span class="star {{ $i <= $averageRating ? 'filled' : 'empty' }}">
+                                            <i class="fas fa-star"></i>
+                                        </span>
+                                    @endfor
                                 </div>
-                                <span class="rating-value">4.5</span>
-                                <span class="rating-count">(128)</span>
+                                <span
+                                    class="rating-value">{{ number_format($course->ratings()->avg('rating'), 1) }}</span>
+                                <span class="rating-count">({{ $ratingsCount }})</span>
                             </div>
 
                             <div class="course-meta">
@@ -632,18 +640,6 @@
                         card.style.display = '';
                     } else {
                         card.style.display = 'none';
-                    }
-                });
-            });
-
-            // Handle checkbox exclusivity for rating
-            const ratingCheckboxes = document.querySelectorAll('input[name="min_rating"]');
-            ratingCheckboxes.forEach(checkbox => {
-                checkbox.addEventListener('change', function() {
-                    if (this.checked) {
-                        ratingCheckboxes.forEach(cb => {
-                            if (cb !== this) cb.checked = false;
-                        });
                     }
                 });
             });

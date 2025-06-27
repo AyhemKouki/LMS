@@ -45,10 +45,26 @@ class Course extends Model
         return $this->hasMany(Lesson::class);
     }
 
-    public function reviews()
+    public function ratings()
     {
-        return $this->hasMany(Review::class);
+        return $this->hasMany(Rating::class);
     }
+
+    public function averageRating()
+    {
+        return $this->ratings()->avg('rating');
+    }
+
+    public function ratingsCount()
+    {
+        return $this->ratings()->count();
+    }
+
+    public function getUserRating($userId)
+    {
+        return $this->ratings()->where('user_id', $userId)->first();
+    }
+
 
     protected $casts = [
         'is_approved' => 'string',

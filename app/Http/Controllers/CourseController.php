@@ -174,12 +174,6 @@ class CourseController extends Controller
             $query->where('price', '<=', $request->price_max);
         }
 
-        // Rating filter (i didnt implement rating yet)
-        if ($request->filled('min_rating')) {
-            $query->whereHas('reviews', function($q) use ($request) {
-                $q->havingRaw('AVG(rating) >= ?', [$request->min_rating]);
-            });
-        }
 
         $courses = $query->paginate(12); // Use pagination for better performance
         $categories = Category::all();
