@@ -9,6 +9,9 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LessonController;
+use App\Livewire\Chat\ChatRoom;
+use App\Livewire\Chat\RoomFormManager;
+use App\Livewire\Chat\RoomTable;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RatingController;
 
@@ -59,6 +62,15 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resources(['orders' => OrderController::class]);
 
+
+    Route::get('/rooms-table', RoomTable::class)->name('rooms-table');
+
+    Route::get('/room-form-manager/create', RoomFormManager::class)->name('room-form-manager.create');
+    Route::get('/room-form-manager/{room}', RoomFormManager::class)->name('room-form-manager.show');
+    Route::get('/room-form-manager/{room}/edit', RoomFormManager::class)->name('room-form-manager.edit');
+
+    Route::get('chat-room/{room}' , ChatRoom::class)->name('chat-room');;
+
 });
 
 //Route::get('/dashboard', function () {
@@ -72,7 +84,6 @@ Route::middleware('auth')->group(function () {
 });
 
 // rating routes
-
 Route::middleware('auth')->group(function () {
     Route::post('/courses/{course}/ratings', [RatingController::class, 'store'])->name('ratings.store');
     Route::delete('/courses/{course}/ratings', [RatingController::class, 'destroy'])->name('ratings.destroy');

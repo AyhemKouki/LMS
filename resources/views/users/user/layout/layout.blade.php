@@ -59,6 +59,11 @@
                             <a class="nav-link @if(request()->routeIs('orders.*')) active text-primary fw-bold @else text-dark @endif" href="{{route('orders.index')}}"><i class="fas fa-shopping-cart me-2"></i> Orders</a>
                         </li>
                     @endif
+
+                    <li class="nav-item">
+                        <a class="nav-link @if(request()->routeIs('rooms-table')) active text-primary fw-bold @else text-dark @endif" href="{{route('rooms-table')}}"><i class="fas fa-wallet me-2"></i> Rooms</a>
+                    </li>
+
                     <li class="nav-item">
                         <a class="nav-link @if(request()->routeIs('withdrawals.*')) active text-primary fw-bold @else text-dark @endif" href="#"><i class="fas fa-wallet me-2"></i> Withdrawals</a>
                     </li>
@@ -98,7 +103,7 @@
                 </ul>
             </div>
 
-            <!-- Main Dashboard Content -->
+            <!-- Main Content -->
             <div class="col-md-9 col-lg-10 p-4 ">
                 @yield('profile')
                 @yield('course_content')
