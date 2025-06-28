@@ -10,7 +10,10 @@ class RoomTable extends Component
     public string $search = '';
     private function getRooms()
     {
-        return Room::where('name' , 'like' , '%' . $this->search . '%')->get();
+
+        return Room::where('name', 'like', '%' . $this->search . '%')
+            ->where('user_id', auth()->id())
+            ->get();
     }
 
 

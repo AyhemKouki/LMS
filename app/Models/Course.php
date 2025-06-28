@@ -65,6 +65,28 @@ class Course extends Model
         return $this->ratings()->where('user_id', $userId)->first();
     }
 
+    public function chatRoom()
+    {
+        return $this->hasOne(Room::class, 'course_id');
+    }
+
+    /**
+     * Obtenir ou créer une room de chat pour ce cours
+     */
+    public function getOrCreateChatRoom()
+    {
+        if (!$this->chatRoom) {
+            return Room::create([
+                'name' => "Chat - {$this->title}",
+                'course_id' => $this->id,
+                'user_id' => $this->user_id,
+            ]);
+        }
+
+        return $this->chatRoom;
+    }
+
+
 
     protected $casts = [
         'is_approved' => 'string',

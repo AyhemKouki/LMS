@@ -203,4 +203,14 @@ class CourseController extends Controller
         return view('users.user.course.watchLesson' , compact('lesson'));
     }
 
+    public function chatWithInstructor(Course $course)
+    {
+        // Obtenir ou créer la room de chat
+        $room = $course->getOrCreateChatRoom();
+
+        // Rediriger vers la room de chat
+        return redirect()->route('chat-room', $room->id);
+
+    }
+
 }

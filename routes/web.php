@@ -69,7 +69,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/room-form-manager/{room}', RoomFormManager::class)->name('room-form-manager.show');
     Route::get('/room-form-manager/{room}/edit', RoomFormManager::class)->name('room-form-manager.edit');
 
-    Route::get('chat-room/{room}' , ChatRoom::class)->name('chat-room');;
+    Route::get('chat-room/{room}' , ChatRoom::class)->name('chat-room');
+
+    Route::get('/course/{course}/chat', [CourseController::class, 'chatWithInstructor'])->name('course.chat');
+
 
 });
 
