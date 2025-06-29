@@ -602,12 +602,13 @@
 
                             <div class="instructor-badge">
                                 @if($course->user_id)
-                                    <img
-                                        src="{{ asset('storage/'.$course->user->profile_image) ?? asset('images/avatar.jpg') }}"
-                                        alt="{{ $course->user->name }}" class="instructor-avatar">
-
-                                    <span class="instructor-name">{{ $course->user->name }}</span>
+                                    @if($course->user->profile_image == "/images/avatar.jpg")
+                                        <img src="{{ asset($course->user->profile_image)}}" alt="{{ $course->user->name }}" class="instructor-avatar">
                                     @else
+                                        <img src="{{ asset('storage/'. $course->user->profile_image)}}" alt="{{ $course->user->name }}" class="instructor-avatar">
+                                    @endif
+                                    <span class="instructor-name">{{ $course->user->name }}</span>
+                                @else
                                     <img
                                     src="{{  asset('images/avatar.jpg') }}"
                                     alt="{{ $course->admin->name }}" class="instructor-avatar">

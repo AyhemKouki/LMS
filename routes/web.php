@@ -90,6 +90,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::post('/courses/{course}/ratings', [RatingController::class, 'store'])->name('ratings.store');
     Route::delete('/courses/{course}/ratings', [RatingController::class, 'destroy'])->name('ratings.destroy');
+    Route::get('seeReviews', [RatingController::class, 'seeReviews'])->name('seeReviews');
 });
 
 require __DIR__.'/auth.php';

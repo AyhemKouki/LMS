@@ -60,9 +60,11 @@
                         </li>
                     @endif
 
-                    <li class="nav-item">
-                        <a class="nav-link @if(request()->routeIs('rooms-table')) active text-primary fw-bold @else text-dark @endif" href="{{route('rooms-table')}}"><i class="fas fa-wallet me-2"></i> Rooms</a>
-                    </li>
+                    @if(auth()->user()->role == "instructor")
+                        <li class="nav-item">
+                            <a class="nav-link @if(request()->routeIs('rooms-table')) active text-primary fw-bold @else text-dark @endif" href="{{route('rooms-table')}}"><i class="fa-solid fa-message"></i> Rooms</a>
+                        </li>
+                    @endif
 
                     <li class="nav-item">
                         <a class="nav-link @if(request()->routeIs('withdrawals.*')) active text-primary fw-bold @else text-dark @endif" href="#"><i class="fas fa-wallet me-2"></i> Withdrawals</a>
@@ -73,9 +75,11 @@
                     <li class="nav-item">
                         <a class="nav-link @if(request()->routeIs('blogs.*')) active text-primary fw-bold @else text-dark @endif" href="#"><i class="fas fa-blog me-2"></i> Blogs</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link @if(request()->routeIs('reviews.*')) active text-primary fw-bold @else text-dark @endif" href="#"><i class="fas fa-star me-2"></i> Reviews</a>
-                    </li>
+                    @if(auth()->user()->role == "instructor")
+                        <li class="nav-item">
+                            <a class="nav-link @if(request()->routeIs('seeReviews')) active text-primary fw-bold @else text-dark @endif" href="{{route('seeReviews')}}"><i class="fas fa-star me-2"></i> Reviews</a>
+                        </li>
+                    @endif
                     @if(!auth()->user()->hasRole('instructor'))
                         @if(!auth()->user()->instructorRequest || auth()->user()->instructorRequest->status === 'rejected')
                             <li class="nav-item">

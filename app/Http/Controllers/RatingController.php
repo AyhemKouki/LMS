@@ -40,4 +40,17 @@ class RatingController extends Controller
         flash()->options(['position' => 'bottom-right'])->success('Your rating has been deleted.');
         return redirect()->back();
     }
+
+
+    public function seeReviews()
+    {
+        // Get all course IDs for the authenticated user
+        $courseIds = Course::where('user_id', Auth::id())->pluck('id');
+
+        // Get ratings for these courses
+        $ratings = Rating::whereIn('course_id', $courseIds)->get();
+
+        return view('Ratings.seeReview', compact('ratings'));
+    }
+
 }
