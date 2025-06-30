@@ -650,6 +650,8 @@
                 </table>
             </div>
 
+            @yield('editUser')
+
             <!-- Pagination -->
             <div class="pagination-wrapper">
                 @if(Route::currentRouteName() == 'admin.student.index')

@@ -26,6 +26,9 @@
             <td>{{ $user->created_at }}</td>
             <td>
                 <div class="action-buttons">
+                    <a href="{{ route('admin.user.edit', $user->id) }}" class="action-btn edit" title="Edit">
+                        <i class="fas fa-edit"></i>
+                    </a>
 
                     <form action="{{ route('admin.student.destroy', $user->id) }}" method="POST"
                           class="d-inline">

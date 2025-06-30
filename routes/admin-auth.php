@@ -88,6 +88,8 @@ Route::middleware('auth:admin')->prefix('admin')->name('admin.')->group(function
         Route::get('users', [UserController::class , 'listUsers'])->name('user.list');
         Route::get('userRole/{user}', [UserController::class , 'userRole'])->name('user.userRole');
         Route::put('manageUserRole/{user}', [UserController::class , 'manageUserRole'])->name('manageUserRole');
+        Route::get('user/{user}/edit', [UserController::class , 'edit'])->name('user.edit');
+        Route::put('user/{user}', [UserController::class , 'update'])->name('user.update');
         Route::delete('users/{user}', [UserController::class , 'destroy'])->name('user.destroy');
 
 
