@@ -6,16 +6,22 @@
     <div class="container py-4">
         <div class="row">
             <div class="col-12">
-                <div class="card shadow-sm">
+                <div class="card shadow">
                     <div
-                        class="card-header bg-primary bg-gradient text-white d-flex justify-content-between align-items-center">
-                        <h4 class="card-title mb-0">Roles</h4>
-                        <a href="{{ route('admin.role.create') }}" class="btn btn-light">Create New Role</a>
+                        class="card-header bg-white border-bottom d-flex justify-content-between align-items-center p-4">
+                        <div>
+                            <h4 class="card-title text-primary mb-1">Roles Management</h4>
+                            <p class="text-muted small mb-0">Manage and organize user roles</p>
+                        </div>
+                        <a href="{{ route('admin.role.create') }}" class="btn btn-primary">
+                            <i class="fas fa-plus-circle me-2"></i>Create New Role
+                        </a>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body p-4">
+
                         <div class="table-responsive">
-                            <table class="table table-bordered table-striped">
-                                <thead>
+                            <table class="table table-hover align-middle">
+                            <thead>
                                 <tr>
                                     <th>ID</th>
                                     <th>Name</th>
@@ -24,24 +30,27 @@
                                     <th>Actions</th>
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="rolesTableBody">
                                 @foreach($roles as $role)
                                     <tr>
                                         <td>{{ $role->id }}</td>
                                         <td>{{ $role->name }}</td>
                                         <td>
-                                            <span class="badge text-bg-success">{{ $role->permissions->pluck('name')->implode(', ') }}</span>
+                                            @foreach($role->permissions as $permission)
+                                                <span
+                                                    class="badge bg-light text-dark border me-1 mb-1">{{ $permission->name }}</span>
+                                            @endforeach
                                         </td>
                                         <td>{{ $role->created_at->format('Y-m-d H:i') }}</td>
                                         <td>
                                             <div class="d-flex gap-2">
                                                 <a href="{{ route('admin.role.edit', $role) }}"
-                                                   class="btn btn-sm btn-outline-warning">
-                                                    <i class="fas fa-edit"></i> Edit
+                                                   class="btn btn-sm btn-primary">
+                                                    <i class="fas fa-edit me-1"></i> Edit
                                                 </a>
                                                 <a href="{{ route('admin.rolePermission', $role->id) }}"
-                                                   class="btn btn-sm btn-outline-info">
-                                                    <i class="fas fa-edit"></i> manage permissions
+                                                   class="btn btn-sm btn-info text-white">
+                                                    <i class="fas fa-key me-1"></i> Permissions
                                                 </a>
                                                 <form action="{{ route('admin.role.destroy', $role) }}"
                                                       method="POST"
@@ -49,9 +58,9 @@
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit"
-                                                            class="btn btn-sm btn-outline-danger"
-                                                            onclick="return confirm('Are you sure you want to delete this permission?')">
-                                                        <i class="fas fa-trash"></i> Delete
+                                                            class="btn btn-sm btn-danger"
+                                                            onclick="return confirm('Are you sure you want to delete this role?')">
+                                                        <i class="fas fa-trash me-1"></i> Delete
                                                     </button>
                                                 </form>
                                             </div>
