@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Coupon;
 use App\Models\Course;
 use App\Models\Order;
 use Illuminate\Http\Request;
@@ -108,5 +109,8 @@ class CartController extends Controller
         dd('Payment failed');
 
     }
+
+
+
 
 }

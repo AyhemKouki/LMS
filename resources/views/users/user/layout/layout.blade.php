@@ -66,15 +66,19 @@
                         </li>
                     @endif
 
-                    <li class="nav-item">
-                        <a class="nav-link @if(request()->routeIs('withdrawals.*')) active text-primary fw-bold @else text-dark @endif" href="#"><i class="fas fa-wallet me-2"></i> Withdrawals</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link @if(request()->routeIs('coupons.*')) active text-primary fw-bold @else text-dark @endif" href="#"><i class="fas fa-tags me-2"></i> Coupons</a>
-                    </li>
+
+                    @if(auth()->user()->role == "instructor")
+                        <li class="nav-item">
+                            <a class="nav-link @if(request()->routeIs('coupons.*')) active text-primary fw-bold @else text-dark @endif" href="{{route('coupons.index')}}"><i class="fas fa-tags me-2"></i> Coupons</a>
+                        </li>
+                    @endif
+
+
                     <li class="nav-item">
                         <a class="nav-link @if(request()->routeIs('blogs.*')) active text-primary fw-bold @else text-dark @endif" href="#"><i class="fas fa-blog me-2"></i> Blogs</a>
                     </li>
+
+
                     @if(auth()->user()->role == "instructor")
                         <li class="nav-item">
                             <a class="nav-link @if(request()->routeIs('seeReviews')) active text-primary fw-bold @else text-dark @endif" href="{{route('seeReviews')}}"><i class="fas fa-star me-2"></i> Reviews</a>

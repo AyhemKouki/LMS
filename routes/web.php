@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CouponController;
 use App\Http\Controllers\Course2Controller;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\InstructorRequestController;
@@ -91,6 +92,12 @@ Route::middleware('auth')->group(function () {
     Route::post('/courses/{course}/ratings', [RatingController::class, 'store'])->name('ratings.store');
     Route::delete('/courses/{course}/ratings', [RatingController::class, 'destroy'])->name('ratings.destroy');
     Route::get('seeReviews', [RatingController::class, 'seeReviews'])->name('seeReviews');
+});
+
+// Routes pour les coupons
+Route::middleware(['auth'])->group(function () {
+    Route::resource('coupons', CouponController::class);
+
 });
 
 require __DIR__.'/auth.php';
