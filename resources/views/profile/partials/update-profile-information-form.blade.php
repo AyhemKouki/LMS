@@ -50,7 +50,19 @@
 
             <div class="mb-3">
                 <label for="profile_image" class="form-label fw-medium">{{ __('Profile Image') }}</label>
-                <input type="file" class="form-control py-2" id="profile_image" name="profile_image" accept="image/*">
+                <div class="upload-area mb-4" >
+                    <div class="upload-content">
+                        <i class="bi bi-cloud-upload upload-icon mb-2"></i>
+                        <p class="upload-subtitle mb-0">JPG, PNG or GIF (max. 2MB)</p>
+                    </div>
+                    <input type="file"
+                           class="form-control "
+                           id="profile_image"
+                           name="profile_image"
+                           accept="image/*"
+                           onchange="previewImage(this)">
+                </div>
+
                 @error('profile_image')
                 <div class="invalid-feedback d-block">{{ $message }}</div>
                 @enderror

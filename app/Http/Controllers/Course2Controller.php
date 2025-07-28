@@ -30,7 +30,8 @@ class Course2Controller extends Controller
 
     public function index_instructor(){
         $courses = Course::where('user_id' , auth()->id())->paginate(5);
-        return view('courses.index_instructor', compact('courses'));
+        $categories = Category::all();
+        return view('courses.index_instructor', compact('courses' , 'categories'));
     }
 
     public function create2()

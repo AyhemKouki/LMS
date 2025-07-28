@@ -97,7 +97,6 @@ Route::middleware('auth')->group(function () {
 // Routes pour les coupons
 Route::middleware(['auth'])->group(function () {
     Route::resource('coupons', CouponController::class);
-
 });
 
 require __DIR__.'/auth.php';

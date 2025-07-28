@@ -28,8 +28,9 @@ class LessonController extends Controller implements HasMiddleware
     }
     public function index()
     {
+        $courses = Course::where('user_id' , auth()->id())->get();
         $lessons = Lesson::where('user_id' , auth()->id())->get();
-        return view('lessons.index' , compact('lessons'));
+        return view('lessons.index' , compact('lessons','courses'));
     }
 
 
