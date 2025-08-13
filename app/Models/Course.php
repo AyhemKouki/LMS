@@ -87,6 +87,14 @@ class Course extends Model
     }
 
 
+    public function getDiscountedPrice()
+    {
+        if (session()->has('discounted_price') && session()->get('applied_coupon')) {
+            return session()->get('discounted_price');
+        }
+        return $this->price;
+    }
+
 
     protected $casts = [
         'is_approved' => 'string',

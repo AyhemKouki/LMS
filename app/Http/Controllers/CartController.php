@@ -18,6 +18,7 @@ class CartController extends Controller
             "name" => $course->title,
             "quantity" => 1,
             "price" => $course->price,
+            "original_price" => $course->price,
             "image" => $course->thumbnail,
             "description" => $course->description,
         ];
@@ -47,12 +48,13 @@ class CartController extends Controller
 
         $amount = 0;
         foreach (session('cart') as $key => $value) {
+            $price = $value['price'];
             $order->courses()->create([
                 'course_id' => $key,
                 'quantity' => $value['quantity'],
-                'price' => $value['price'],
+                'price' => $price,
             ]);
-            $amount += $value['price'] * $value['quantity'];
+            $amount += $price * $value['quantity'];
         }
 
         $order->amount = $amount;
@@ -110,6 +112,38 @@ class CartController extends Controller
 
     }
 
+    public function applyCoupon(Request $request, Course $course)
+    {
+        $request->validate([
+            'coupon_code' => 'required|string|exists:coupons,coupon_name',
+        ]);
+
+        $coupon = Coupon::active()
+            ->where('coupon_name', $request->coupon_code)
+            ->first();
+
+        if (!$coupon) {
+            return back()->withErrors(['coupon_code' => 'Ce coupon n’est pas valide ou a expiré.']);
+        }
+
+        if (!$coupon->isApplicableForCourse($course->id)) {
+            return back()->withErrors(['coupon_code' => 'Ce coupon ne s’applique pas à ce cours.']);
+        }
+
+        $cart = session('cart');
+        foreach ($cart as $id => &$item) {
+            if ($id == $course->id) {
+                $discountedPrice = $coupon->applyDiscount($item['original_price']);
+                $item['price'] = $discountedPrice;
+                session(['discounted_price' => $discountedPrice]);
+            }
+        }
+        session(['cart' => $cart]);
+        session(['applied_coupon' => $coupon->id]);
+
+        flash()->options(["position" => "bottom-right"])->success('Coupon applied successfully.');
+        return redirect()->route('cart');
+    }
 
 
 

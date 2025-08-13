@@ -17,10 +17,6 @@ return new class extends Migration {
             $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade');
             $table->timestamps();
 
-            // Index pour améliorer les performances des requêtes
-            $table->index(['status', 'coupon_validity']);
-            $table->index('course_id');
-            $table->index('instructor_id');
         });
     }
 

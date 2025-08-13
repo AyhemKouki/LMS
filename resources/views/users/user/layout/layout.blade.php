@@ -84,6 +84,7 @@
                             <a class="nav-link @if(request()->routeIs('seeReviews')) active text-primary fw-bold @else text-dark @endif" href="{{route('seeReviews')}}"><i class="fas fa-star me-2"></i> Reviews</a>
                         </li>
                     @endif
+
                     @if(!auth()->user()->hasRole('instructor'))
                         @if(!auth()->user()->instructorRequest || auth()->user()->instructorRequest->status === 'rejected')
                             <li class="nav-item">
@@ -116,6 +117,7 @@
                 @yield('profile')
                 @yield('course_content')
                 @yield('content2')
+
             </div>
         </div>
     </div>

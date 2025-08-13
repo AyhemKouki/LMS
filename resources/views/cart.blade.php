@@ -72,8 +72,36 @@
                                 </form>
                             </div>
                         </div>
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title mb-4">Apply Coupon</h5>
+                                @if ($errors->has('coupon_code'))
+                                    <div class="alert alert-danger">
+                                        {{ $errors->first('coupon_code') }}
+                                    </div>
+                                @endif
+                                <form action="{{ route('checkout.applyCoupon', array_key_first(session('cart'))) }}"
+                                      method="POST" class="d-flex gap-2">
+                                @csrf
+                                    <input type="text" name="coupon_code" class="form-control"
+                                           placeholder="Enter coupon code" required>
+                                    <button type="submit" class="btn btn-secondary">Apply</button>
+                                </form>
+                                @if(session('discounted_price'))
+                                    <div class="mt-3 text-success">
+                                        <p class="mb-0">Discounted Price: ${{ session('discounted_price') }}</p>
+                                    </div>
+                                @endif
+                                @if(session('success'))
+                                    <div class="mt-3 alert alert-success">
+                                        {{ session('success') }}
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
                     </div>
-                </div>
+                    </div>
+    </div>
         @else
             <div class="text-center">
                 <h3>Your cart is empty</h3>

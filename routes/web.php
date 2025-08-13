@@ -61,6 +61,9 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/remove-from-cart/{id}', [CartController::class, 'removeFromCart'])->name('removeFromCart');
 
 
+    Route::post('/checkout/{course}/apply-coupon', [CartController::class, 'applyCoupon'])->name('checkout.applyCoupon');
+
+
     Route::resources(['orders' => OrderController::class]);
 
 

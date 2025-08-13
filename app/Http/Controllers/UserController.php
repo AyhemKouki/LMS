@@ -11,7 +11,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        return view('users.user.layout.layout');
+        return view('users.user.dashboard.dashboard');
     }
 
     public function listUsers(){
