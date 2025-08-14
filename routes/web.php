@@ -49,6 +49,7 @@ Route::middleware('auth')->group(function () {
 
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('/instructor_dashboard', [UserController::class, 'instructor_index'])->name('instructor_dashboard');
     Route::get('/dashboard', [UserController::class, 'index'])->name('dashboard');
 
     Route::resources(['lesson' => LessonController::class]);

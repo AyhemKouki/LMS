@@ -29,9 +29,19 @@
 
                 <!-- Sidebar Links -->
                 <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link @if(request()->routeIs('dashboard')) active text-primary fw-bold @else text-dark @endif" href="{{route('dashboard')}}"><i class="fas fa-home me-2"></i> Dashboard</a>
-                    </li>
+
+                    @if(auth()->user()->role == "student")
+                        <li class="nav-item">
+                            <a class="nav-link @if(request()->routeIs('dashboard')) active text-primary fw-bold @else text-dark @endif" href="{{route('dashboard')}}"><i class="fas fa-home me-2"></i> Dashboard</a>
+                        </li>
+                    @endif
+
+                    @if(auth()->user()->role == "instructor")
+                        <li class="nav-item">
+                            <a class="nav-link @if(request()->routeIs('instructor_dashboard')) active text-primary fw-bold @else text-dark @endif" href="{{route('instructor_dashboard')}}"><i class="fas fa-home me-2"></i> Dashboard</a>
+                        </li>
+                    @endif
+
                     <li class="nav-item">
                         <a class="nav-link @if(request()->routeIs('profile.edit')) active text-primary fw-bold @else text-dark @endif" href="{{route('profile.edit')}}"><i class="fas fa-user me-2"></i> Profile</a>
                     </li>

@@ -160,7 +160,13 @@
 
 
                 <div class="d-flex align-items-center">
-                    <a href="{{route('dashboard')}}" class="btn btn-signin">Dashboard</a>
+                    @if(auth()->user()->role == "student")
+                        <a href="{{route('dashboard')}}" class="btn btn-signin">Dashboard</a>
+                    @else
+                        <a href="{{route('instructor_dashboard')}}" class="btn btn-signin">Dashboard</a>
+                    @endif
+
+
                 </div>
             </div>
 
