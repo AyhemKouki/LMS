@@ -340,6 +340,22 @@
         </li>
 
         <li class="sidebar-nav-item">
+            <a href="{{route('admin.ratings.index')}}"
+               class="sidebar-nav-link {{ request()->routeIs('admin.ratings.index') ? 'active' : '' }}">
+                <i class="bi bi-people"></i>
+                Ratings
+            </a>
+        </li>
+
+        <li class="sidebar-nav-item">
+            <a href="{{route('admin.coupons.index')}}"
+               class="sidebar-nav-link {{ request()->routeIs('admin.coupons.*') ? 'active' : '' }}">
+                <i class="bi bi-people"></i>
+                Coupons
+            </a>
+        </li>
+
+        <li class="sidebar-nav-item">
             <a href="{{route('admin.alluser.index')}}"
                class="sidebar-nav-link {{ request()->routeIs('admin.alluser.*') ? 'active' : '' }}">
             <i class="bi bi-people"></i>

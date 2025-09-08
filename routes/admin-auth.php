@@ -12,8 +12,10 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CouponController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\InstructorRequestController;
+use App\Http\Controllers\RatingController;
 use App\Http\Controllers\Spatie\PermissionController;
 use App\Http\Controllers\Spatie\RoleController;
 use App\Http\Controllers\UserController;
@@ -96,6 +98,11 @@ Route::middleware('auth:admin')->prefix('admin')->name('admin.')->group(function
         Route::get('/instructor-requests', [InstructorRequestController::class, 'index'])->name('instructor-requests.index');
         Route::get('/instructor-requests/{instructorRequest}', [InstructorRequestController::class, 'show'])->name('instructor-requests.show');
         Route::patch('/instructor-requests/{instructorRequest}/status', [InstructorRequestController::class, 'updateStatus'])->name('instructor-requests.update-status');
+
+
+        Route::get('ratings', [RatingController::class, 'index'])->name('ratings.index');
+
+        Route::resource('/coupons', CouponController::class);
 
     });
 

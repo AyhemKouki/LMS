@@ -9,6 +9,12 @@ use Illuminate\Support\Facades\Auth;
 
 class RatingController extends Controller
 {
+
+    public function  index()
+    {
+        $ratings = Rating::get();
+        return view('Ratings.index', compact('ratings'));
+    }
     public function store(Request $request, Course $course)
     {
         $request->validate([

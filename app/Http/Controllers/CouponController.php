@@ -5,22 +5,42 @@ namespace App\Http\Controllers;
 use App\Models\Coupon;
 use App\Models\Course;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class CouponController extends Controller
 {
     public function index()
     {
-        $coupons = Coupon::where('user_id', auth()->id())->get();
 
-        return view('coupons.index', compact('coupons'));
+        $user = auth()->user();
+
+        if ($user->role === 'instructor') {
+
+            $coupons = Coupon::where('user_id', auth()->id())->get();
+
+            return view('coupons.index', compact('coupons'));
+        }
+        else{
+            $coupons = Coupon::get();
+            return view('users.admin.coupon.index', compact('coupons'));
+        }
+
     }
 
     public function create()
     {
 
-        $courses = Course::where('user_id' , auth()->id())->get();
+        $user = auth()->user();
+        if ($user->role === 'instructor') {
+            $courses = Course::where('user_id' , auth()->id())->get();
+            return view('coupons.create' , compact('courses'));
+        }
+        else{
+            $courses = Course::get();
+            return view('users.admin.coupon.create', compact('courses'));
+        }
 
-        return view('coupons.create' , compact('courses'));
+
     }
 
     public function store(Request $request)
@@ -33,19 +53,41 @@ class CouponController extends Controller
             'status' => 'required|in:0,1',
         ]);
 
-        $validated['user_id'] = auth()->id();
 
-        Coupon::create($validated);
 
-        flash()->options(["position"=>"bottom-right"])->success("Coupon created successfully.");
+        $user = auth()->user();
+        if ($user->role === 'instructor') {
 
-        return redirect()->route('coupons.index');
+            $validated['user_id'] = auth()->id();
+
+            Coupon::create($validated);
+
+            flash()->options(["position"=>"bottom-right"])->success("Coupon created successfully.");
+            return redirect()->route('coupons.index');
+        }
+        else{
+            $validated['admin_id'] = auth()->id();
+
+            Coupon::create($validated);
+
+            flash()->options(["position"=>"bottom-right"])->success("Coupon created successfully.");
+            return redirect()->route('admin.coupons.create');
+        }
+
     }
 
     public function edit(Coupon $coupon)
     {
-        $courses = Course::where('user_id', auth()->id())->get();
-        return view('coupons.edit', compact('coupon', 'courses'));
+        $user = auth()->user();
+        if ($user->role === 'instructor') {
+            $courses = Course::where('user_id', auth()->id())->get();
+            return view('coupons.edit', compact('coupon', 'courses'));
+        }
+        else{
+            $courses = Course::get();
+            return view('users.admin.coupon.edit', compact('coupon', 'courses'));
+        }
+
     }
 
     public function update(Request $request, Coupon $coupon)
@@ -61,7 +103,14 @@ class CouponController extends Controller
         $coupon->update($validated);
 
         flash()->options(["position"=>"bottom-right"])->success("Coupon updated successfully.");
-        return redirect()->route('coupons.index');
+
+        $user = auth()->user();
+        if ($user->role === 'instructor') {
+            return redirect()->route('coupons.index');
+        }
+        else {
+            return redirect()->route('admin.coupons.index');
+        }
     }
 
     public function destroy(Coupon $coupon)
@@ -70,6 +119,12 @@ class CouponController extends Controller
 
 
         flash()->options(["position"=>"bottom-right"])->success("Coupon deleted successfully.");
-        return redirect()->route('coupons.index');
+
+        if (auth()->user()->role === 'instructor') {
+            return redirect()->route('coupons.index');
+        }
+        else {
+            return redirect()->route('admin.coupons.index');
+        }
     }
 }
