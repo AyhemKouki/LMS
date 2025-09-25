@@ -84,9 +84,6 @@
                     @endif
 
 
-                    <li class="nav-item">
-                        <a class="nav-link @if(request()->routeIs('blogs.*')) active text-primary fw-bold @else text-dark @endif" href="#"><i class="fas fa-blog me-2"></i> Blogs</a>
-                    </li>
 
 
                     @if(auth()->user()->role == "instructor")

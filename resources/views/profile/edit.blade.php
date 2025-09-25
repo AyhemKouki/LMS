@@ -28,10 +28,17 @@
                                 <div class="col-12 text-center mb-4 mb-md-0">
                                 <div class="profile-image-container position-relative mx-auto">
                                         <div class="profile-ring"></div>
+                                    @if(auth()->user()->profile_image !== "/images/avatar.jpg")
                                         <img src="{{ auth()->user()->profile_image ? asset('storage/' . auth()->user()->profile_image) : 'https://ui-avatars.com/api/?name=' . urlencode(auth()->user()->name) . '&size=150&background=667eea&color=ffffff&bold=true' }}"
                                              alt="Profile Picture"
                                              class="profile-image shadow-lg"
                                              id="profileImagePreview">
+                                    @else
+                                        <img src="{{ "/images/avatar.jpg" }}"
+                                             alt="Profile Picture"
+                                             class="profile-image shadow-lg"
+                                             id="profileImagePreview">
+                                    @endif
                                         <div class="profile-badge">
                                             <i class="bi bi-camera-fill"></i>
                                         </div>

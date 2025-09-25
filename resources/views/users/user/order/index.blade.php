@@ -68,7 +68,7 @@
                                         <i class="bi bi-cart-x fs-1 mb-3"></i>
                                         <h5 class="fw-semibold">No orders found</h5>
                                         <p>You haven't placed any orders yet.</p>
-                                        <a href="{{ route('courses.index') }}" class="btn btn-primary mt-2 px-4">
+                                        <a href="{{ route('coursespage.index') }}" class="btn btn-primary mt-2 px-4">
                                             <i class="bi bi-book me-2"></i> Browse Courses
                                         </a>
                                     </div>
